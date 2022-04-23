@@ -1,0 +1,23 @@
+
+.navbar{
+    margin-top: 5px ;
+}
+.navbar a{text-decoration: none;
+    margin: 0 10px;
+    font-size: 1.5em;
+    padding: 1rem;
+    color: #fff;
+    transition: .3s;
+    
+
+}
+.navbar a:hover{
+    color: purple;    
+    background-color: aliceblue;
+
+}
+
+.active{
+    background-color: red;
+    
+}
