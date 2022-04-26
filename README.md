@@ -145,8 +145,9 @@ export const Home = () => {
 };
 ```
 
-Consumindo o contexto em outras paginas 
-Sobre , Product 
+Consumindo o contexto em outras paginas
+Sobre , Product
+
 ```tsx
 export const About = () => {
   const { counter } = useContext(CounterContext);
@@ -167,10 +168,43 @@ export const Product = () => {
     </div>
   );
 };
-
-
 ```
 
-Assim compartilhamos em todas as paginas o contexto reutilizando de uma forma facil 
+Assim compartilhamos em todas as paginas o contexto reutilizando de uma forma facil
 
+## Refatorando context com hook
 
+'
+
+- Podemos criar um hook para utilizar o contexto, isso nos da algumas vantagens
+- Nao precisamos importar o useContext em todos os lugares que vamos usar o contexto, so o hook
+- Temos um espaco para fazer uma validacao do contexto
+
+Criando um pasta src/hooks/useCounterContext.js
+
+```tsx
+// Criamos o useCounterContext
+export const useCounterContext = () => {
+  // chamamos o nosso contexto
+  const context = useContext(CounterContext);
+
+  //verificamos se existe um contexto , se nao existir retornamos console.log()
+  if (!context) {
+    console.log("Contexto nao encontrado");
+  }
+
+  //retornamos o context
+
+  return context;
+};
+```
+
+Agora vamos na Home.js
+Vamos usar o nosso hook useCounterContext()
+
+```tsx
+const { counter } = useCounterContext();
+
+// Assim fica mais simples de chamar o contexto criando um hook , apenas chamamos assim
+// nao precisa mais chamar   //const { counter } = useContext(CounterContext);
+```

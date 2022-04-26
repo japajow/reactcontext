@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
-import { ChangeContext } from "../../components/ChangeCounter/ChangeCounter";
-import { CounterContext } from "../../context/CounterContext";
+import React from "react";
+import { useCounterContext } from "../../hooks/useCounterContext";
 import "./About.css";
 
 export const About = () => {
-  const { counter } = useContext(CounterContext);
+  //const { counter } = useContext(CounterContext);
+
+  const { counter } = useCounterContext();
   return (
     <div>
       <h1>About</h1>
