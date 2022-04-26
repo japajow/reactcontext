@@ -315,3 +315,58 @@ const { color } = useTitleContext();
 
 <h1 style={{ color: color }}>Home</h1>;
 ```
+
+## Alterando contexto complexo
+
+- Para alterar o contexto vamos utilizar uma funcao chamada dispatch
+- Ela estara no reducer tambem
+- E deve conter todas as informacoes necessarias para a alteracao do valor do contexto
+- Ou seja o switch entra em aco e retorna um novo contexto
+
+```tsx
+
+vamos esporta o dispatch junto com state
+
+value={...state, dispatch}
+
+ return (
+    <TitleColorContext.Provider value={{...state, dispatch}}>
+      {children}
+    </TitleColorContext.Provider>
+  );
+
+  // criamos os switch para pegar os valores com action
+
+  switch(action.type){
+    case "RED" :
+        return {...state, color: "red"}//retornamos no ...state pegando o estado atual e colocando um novo valor
+      break;
+
+      case "BLUE":
+      return {...state,color: "blue"}
+      break;
+
+      default: state; // sempre devolvemos o default cor roxa que ja esta
+  }
+
+```
+
+Agora vamos na Home.js alterar o contexto complexo 
+
+```tsx
+
+// importamos o dispatch junto com a color 
+const {color, dispatch} = useTitleColorContext();
+
+const setTitleColor = (color) => {
+  dispatch({type:color})
+}
+
+// criamos agora o botao para disparar a acao 
+
+<div>
+  <button onClick={()=> setTiteColor("RED")}>
+</div>
+
+
+```
