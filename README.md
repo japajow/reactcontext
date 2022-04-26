@@ -351,22 +351,48 @@ value={...state, dispatch}
 
 ```
 
-Agora vamos na Home.js alterar o contexto complexo 
+Agora vamos na Home.js alterar o contexto complexo
 
 ```tsx
 
-// importamos o dispatch junto com a color 
+// importamos o dispatch junto com a color
 const {color, dispatch} = useTitleColorContext();
 
 const setTitleColor = (color) => {
   dispatch({type:color})
 }
 
-// criamos agora o botao para disparar a acao 
+// criamos agora o botao para disparar a acao
 
 <div>
   <button onClick={()=> setTiteColor("RED")}>
 </div>
 
+//Aproveitando em outros lugares
 
+export const Product = () => {
+  // const { counter } = useContext(CounterContext);
+  const { counter } = useCounterContext();
+  const { color } = useTitleColorContext();
+  return (
+    <div>
+      <h1 style={{ color: color }}>Produtos</h1>
+      <p>Valor do contador: {counter}</p>
+    </div>
+  );
+};
+
+export const About = () => {
+  //const { counter } = useContext(CounterContext);
+
+  const { counter } = useCounterContext();
+
+  const { color } = useTitleColorContext();
+  return (
+    <div>
+      <h1 style={{ color: color }}>About</h1>
+      <p>Valor do contador: {counter}</p>
+    </div>
+  );
+};
 ```
