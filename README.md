@@ -69,8 +69,7 @@ import { CounterContext } from "../../context/CounterContext";
 // agora destruturamos o counter no useContext passando o CounterContext como parametro
 const [counter, setCounter] = useContext(CounterContext);
 
-
-//ficando assim 
+//ficando assim
 import React from "react";
 import "./Home.css";
 
@@ -87,3 +86,91 @@ export const Home = () => {
   );
 };
 ```
+
+## Alterando o valor do contexto
+
+- Para alterar o valor do contexto precisamos criar um componente que utilizr a funcao da mudancao de contexto
+
+- Esta mudança ocorrerá no COntext e poderá ser comsumida por todos os componentes que recebem o contexto
+
+- E assim finalizamos o ciclo da context api
+
+Criando o componente
+componentes;ChangeCOunter.js
+
+```tsx
+//criando o componente
+
+import React from 'react';
+import './ChangeContext.css';
+
+export const ChangeContext = () => {
+ return (
+<div>ChangeContext</div>
+ );
+};
+
+//Setando o contador do contexto
+
+const [counter,setCounter] = useContext(CounterContext)
+
+//Criando um botao
+<button>Add value to counter</button>
+
+// criando o tag de onClick com funcao , setando o setCOunter e counter + 1
+onClick={()=>{setCounter(counter +1)}}
+
+//ficari assim o nosso buttom
+ <button onClick={()=>{setCounter(counter + 1)}}>Add value to counter </button>
+
+
+```
+
+Agora vamos colocar esse ChangeCounter.js no nosso Home.js
+
+```tsx
+<ChangeCounter />;
+
+//ficando assim
+
+export const Home = () => {
+  const { counter } = useContext(CounterContext);
+  return (
+    <div>
+      <h1>Home</h1>
+      <p>Valor do contador: {counter}</p>
+      <ChangeContext />
+    </div>
+  );
+};
+```
+
+Consumindo o contexto em outras paginas 
+Sobre , Product 
+```tsx
+export const About = () => {
+  const { counter } = useContext(CounterContext);
+  return (
+    <div>
+      <h1>About</h1>
+      <p>Valor do contador: {counter}</p>
+    </div>
+  );
+};
+
+export const Product = () => {
+  const { counter } = useContext(CounterContext);
+  return (
+    <div>
+      <h1>Produtos</h1>
+      <p>Valor do contador: {counter}</p>
+    </div>
+  );
+};
+
+
+```
+
+Assim compartilhamos em todas as paginas o contexto reutilizando de uma forma facil 
+
+

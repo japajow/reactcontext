@@ -1,8 +1,14 @@
-import React from 'react';
-import './About.css';
- 
+import React, { useContext } from "react";
+import { ChangeContext } from "../../components/ChangeCounter/ChangeCounter";
+import { CounterContext } from "../../context/CounterContext";
+import "./About.css";
+
 export const About = () => {
- return (
-<h1>About</h1>
- );
+  const { counter } = useContext(CounterContext);
+  return (
+    <div>
+      <h1>About</h1>
+      <p>Valor do contador: {counter}</p>
+    </div>
+  );
 };
