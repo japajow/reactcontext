@@ -208,3 +208,110 @@ const { counter } = useCounterContext();
 // Assim fica mais simples de chamar o contexto criando um hook , apenas chamamos assim
 // nao precisa mais chamar   //const { counter } = useContext(CounterContext);
 ```
+
+## Contexto mais complexo
+
+- Contextos mais complexos podem ter variacoes no comportamento
+- Para isso vamos utilizar um hook chamado useReducer
+- Que e como um useState, mas para controle de dados mais complexos
+- No reducer teremos diferente acoes com um switch
+- E na aplicacao vamos consumir o estado atual do dado que esta no reducer
+
+Vamos no context e criar um arquivo para aletrar a cor do titulo
+context/TitleColorContext.js
+
+```tsx
+// criamos o contexto e exportamos
+export const TitleColorContext = createContext();
+
+// criamos o provier e exportamos
+export const TitleColorContextProvider = ({ children }) => {
+  return (
+    <TitleColorContext.Provider value={{}}>
+      {children}
+    </TitleColorContext.Provider>
+  );
+};
+```
+
+Agora no index.js vamos envolver o nosso App
+
+```tsx
+root.render(
+  <React.StrictMode>
+    <CounterContextProvider>
+      <TitleColorContextProvider>
+        <App />
+      </TitleColorContextProvider>
+    </CounterContextProvider>
+  </React.StrictMode>
+);
+```
+
+Criando o hook para o contexto TitleColoContext
+
+```tsx
+export const useTitleColorContext = () => {};
+
+// usamos o contexto
+const { title } = useContext(TitleColorContext);
+
+// ficaria assim
+
+import { useContext } from "react";
+import { TitleColorContext } from "../context/TitleColorContext";
+
+export const useTitleColorContext = () => {
+  const context = useContext(TitleColorContext);
+
+  // verificamos se existe um context
+
+  if (!context) {
+    console.log("Nenhum contexto encontrado ");
+  }
+
+  // retornamos o contexto
+
+  return context;
+};
+```
+
+Agora vamos usar o reducer
+
+```tsx
+// temos o estado , state  e dispatch  e o que vai alterar o contexto
+const [state,dispatch] = useReduce( titleColorReducer, {color: "purple"}// aqui colocamos os valores default)
+
+
+// 1 ,quem altera o estado titleColorReducer
+
+// 2 e que e o estado default inicial {color: "purple"}
+
+Agora temo que criar esse titleColorReducer para dar uma acao no nosso reducer
+
+export const titleColorReducer = (state,action) =>{
+  // switch
+}
+
+
+// temos que passar no valur o estado com spread
+
+value={{...state}}
+
+//ficando assim
+ return (
+    <TitleColorContext.Provider value={{...state}}>
+      {children}
+    </TitleColorContext.Provider>
+  );
+```
+
+Vamos consumir esse state na Home.js
+
+```tsx
+const { color } = useTitleContext();
+
+// usamos a cor no titulo
+
+<h1 style={{ color: color }}>Home</h1>;
+```
